@@ -12,20 +12,20 @@ mongoose.connect("mongodb://localhost:27017/Product", {
     process.exit();
 });
 
-const app = express();
+const produit = express();
 
-app.use(bodyParser.urlencoded({ extended: true }))
+produit.use(bodyParser.urlencoded({ extended: true }))
 
-app.use(bodyParser.json())
+produit.use(bodyParser.json())
 
-app.get('/', (req, res) => {
+produit.get('/', (req, res) => {
     res.json({"message": "Server is running :D"});
 });
 
 let PORT = 8080
 
-require('./app/routes/app.routes.js')(app);
+require('./produit/routes/productroute.js')(produit);
 
-app.listen(PORT, () => {
+produit.listen(PORT, () => {
     console.log(`Server is listening on port ${PORT}`);
 });
