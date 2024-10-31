@@ -12,7 +12,13 @@ const ProductSchema = mongoose.Schema({
     prix: {
         type: Number,
         required: true
+    },
+    
+    images: {
+        type: [String],
+        default: []
     }
+    
 });
 
 module.exports = mongoose.model("Product", ProductSchema);

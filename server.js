@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
 
-mongoose.connect("mongodb://localhost:27017/Product", {
+mongoose.connect("mongodb://localhost:27017/products", {
 }).then(() => {
     console.log("Successfully connected to the database");    
 }).catch(err => {
@@ -24,7 +24,7 @@ produit.get('/', (req, res) => {
 
 let PORT = 8080
 
-require('./produit/routes/productroute.js')(produit);
+require('./Produit/routes/productroute.js')(produit);
 
 produit.listen(PORT, () => {
     console.log(`Server is listening on port ${PORT}`);

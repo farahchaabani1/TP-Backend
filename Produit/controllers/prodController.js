@@ -1,11 +1,11 @@
 const Product = require("../model/prodModel.js");
 
-// Créer et sauvegarder un nouveau produit
 exports.create = (req, res) => {
     const product = new Product({
         nom: req.body.nom,
         description: req.body.description,
         prix: req.body.prix,
+        images: req.body.images || []
     });
 
     product.save()
@@ -14,12 +14,11 @@ exports.create = (req, res) => {
         })
         .catch(err => {
             res.status(500).send({
-                message: err.message || "Une erreur s'est produite lors de la création du produit.",
+                message: err.message || "Some error occurred while creating the Product.",
             });
         });
 };
 
-// Récupérer tous les produits
 exports.findAll = (req, res) => {
     Product.find()
         .then(data => {
@@ -27,18 +26,17 @@ exports.findAll = (req, res) => {
         })
         .catch(err => {
             res.status(500).send({
-                message: err.message || "Une erreur s'est produite lors de la récupération des produits.",
+                message: err.message || "Some error occurred while retrieving products.",
             });
         });
 };
 
-// Trouver un produit par ID
 exports.findOne = (req, res) => {
     Product.findById(req.params.productId)
         .then(data => {
             if (!data) {
                 return res.status(404).send({
-                    message: "Produit non trouvé avec l'ID " + req.params.productId,
+                    message: "Product not found with id " + req.params.productId,
                 });
             }
             res.send(data);
@@ -46,16 +44,15 @@ exports.findOne = (req, res) => {
         .catch(err => {
             if (err.kind === "ObjectId") {
                 return res.status(404).send({
-                    message: "Produit non trouvé avec l'ID " + req.params.productId,
+                    message: "Product not found with id " + req.params.productId,
                 });
             }
             return res.status(500).send({
-                message: "Erreur lors de la récupération du produit avec l'ID " + req.params.productId,
+                message: "Error retrieving message with id " + req.params.productId,
             });
         });
 };
 
-// Mettre à jour un produit par ID
 exports.update = (req, res) => {
     Product.findByIdAndUpdate(
         req.params.productId,
@@ -63,6 +60,7 @@ exports.update = (req, res) => {
             nom: req.body.nom,
             description: req.body.description,
             prix: req.body.prix,
+            images: req.body.images || [] 
         },
         { new: true }
     )
@@ -86,7 +84,6 @@ exports.update = (req, res) => {
     });
 };
 
-// Supprimer un produit par ID
 exports.delete = (req, res) => {
     Product.findByIdAndDelete(req.params.productId)
         .then(data => {
