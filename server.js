@@ -8,7 +8,7 @@ mongoose.connect("mongodb://localhost:27017/products", {
 }).then(() => {
     console.log("Successfully connected to the database");    
 }).catch(err => {
-    console.log('Could not connect to the database. Error...', err);
+    console.log('Could not connect to the database. Error ...', err);
     process.exit();
 });
 
